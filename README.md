@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-I CARE is a platform dedicated to providing students in South Africa with easy access to mental health professionals. Our mission is to combat the stigma surrounding mental health and offer a confidential, user-friendly system where students can book therapy sessions, either virtual or in-person, with verified doctors. The platform also enables doctors to manage appointments, interact with community posts, and communicate with students via a chat feature.
+I CARE is a platform dedicated to providing students in Africa with easy access to mental health professionals. Our mission is to combat the stigma surrounding mental health and offer a confidential, user-friendly system where students can book therapy sessions, either virtual or in-person, with verified doctors. The platform also enables doctors to manage appointments, interact with community posts, and communicate with students via a chat feature.
 
 ## Table of Contents
 
