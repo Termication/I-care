@@ -1,0 +1,17 @@
+.chat-history ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.chat-history li {
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 5px;
+}

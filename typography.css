@@ -1,0 +1,18 @@
+/* typography.css */
+
+h2 {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 0.9em;
+    color: #333;
+}
+
+p a {
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+}
