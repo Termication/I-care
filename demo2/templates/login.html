@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I CARE - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/typography.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/links.css') }}">
+
+</head>
+<body>
+
+<div class="form-container">
+    <div class="form-content" id="loginForm">
+        <img src="{{ url_for('static', filename='graphics/i care transparent.png') }}" alt="I CARE Logo" class="logo">
+        <h2>Sign in to continue</h2>
+        <form action="/login" method="POST">
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <a href="#" class="forgot-password">Forgot password?</a>
+            <button type="submit" class="btn-primary">Login</button>
+            <button class="btn-secondary">Log in with Facebook</button>
+        </form>
+        <p>I'm a new user, <a href="/signup">Sign Up</a></p>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
