@@ -1,9 +1,0 @@
-/* base.css */
-
-/* Reset basic styles */
-body, h2, p, input, button {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    box-sizing: border-box;
-}
