@@ -29,25 +29,22 @@ I CARE is a platform dedicated to providing students in Africa with easy access 
 
 ## Technologies Used
 
-* Languages: Python, JavaScript, TypeScript, HTML
-* Frameworks: Flask, React
-* Libraries: SQLAlchemy, Redux
-* Platforms: Docker, AWS
-* Testing Tools: pytest, Selenium
+* Languages: Python, JavaScript, Css, HTML
+* Frameworks: Flask, Websocket
+* Libraries: SQLAlchemy
+* Platforms: Gunicorn and Nginx
+* Testing Tools: pytest
 
 ## Technology Trade-offs
 
 * **Flask vs. Django:** Flask was chosen for its lightweight nature and flexibility, allowing for faster development and easier customization. Django was considered too heavy for the specific needs of this project.
-* **React vs. Angular:** React was selected for its component-based architecture and strong community support, making it easier to create a dynamic and responsive user interface. Angular was not chosen due to its steeper learning curve.
-
 ## Getting Started
 
 ### Prerequisites
 
 * Python 3.x
-* Node.js & npm
-* Docker (for containerization)
-* AWS Account (for deployment)
+* Flask
+* Gunicorn and Nginx
 
 ### Installation
 
@@ -65,22 +62,10 @@ pip install -r requirements.txt
 flask run
 ```
 
-##### Frontend Setup:
-```bash
-cd frontend
-npm install
-npm start
-```
-##### Docker Setup (Optional):
-
-```bash
-    docker-compose up --build
-```
 ## Usage
 
     Development: Run both frontend and backend servers for development.
-    Production: Use Docker and AWS for deployment.
-
+    
 ## Screenshots
 
 Here are some screenshots of the platform:
