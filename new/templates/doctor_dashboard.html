@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+    <script type="text/javascript">
+        var socket = io.connect(window.location.protocol + '//' + document.domain + ':' + location.port);
+
+        // Join the chat room when the page loads
+        window.onload = function() {
+            var room = "{{ doctor_profile.id }}";  // Doctor has a unique chat room
+            joinRoom(room);
+        }
+
+        // Function to join a room
+        function joinRoom(room) {
+            socket.emit('join', { room: room });
+        }
+
+        // Sending a message when form is submitted
+        function sendMessage(event) {
+            event.preventDefault();  // Prevent form submission
+            var room = "{{ doctor_profile.id }}";
+            var message = document.getElementById('message').value;
+            var doctor_id = "{{ doctor_profile.id }}";
+            var user_id = "{{ current_user.id }}";
+
+            socket.emit('send_message', { room: room, message: message, doctor_id: doctor_id, user_id: user_id });
+
+            document.getElementById('message').value = '';  // Clear message input
+        }
+
+        // Receiving a message
+        socket.on('receive_message', function(data) {
+            var message = data.message;
+            var sender = (data.user_id == "{{ current_user.id }}") ? "You" : "{{ doctor_profile.user_profile.name }}";
+            var timestamp = data.timestamp;
+
+            // Display the new message in the chat history
+            var chatHistory = document.getElementById('chat-history');
+            var newMessage = `<li><strong>${sender}:</strong> ${message} <br><small>${timestamp}</small></li>`;
+            chatHistory.innerHTML += newMessage;
+        });
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <h1>Welcome, {{ current_user.name }}!</h1>
+
+    <section class="doctor-dashboard">
+        <h2>Your Specialty: {{ doctor_profile.specialty }}</h2>
+        <p>Practice Number: {{ doctor_profile.practice_number }}</p>
+
+        <!-- Notifications Section -->
+        <section class="notifications">
+            {% if notifications %}
+                <h3>Pending Notifications</h3>
+                <ul>
+                    {% for notification in notifications %}
+                        <li>
+                            {{ notification.message }} - <small>{{ notification.timestamp }}</small>
+                            <form method="POST" action="{{ url_for('mark_notification_as_read', notification_id=notification.id) }}">
+                                <button type="submit">Mark as Read</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No new notifications.</p>
+            {% endif %}
+        </section>
+
+        <section class="doctor-chat">
+            <h2>Chat with Students</h2>
+            <div class="chat-history" id="chat-history">
+                <ul>
+                    {% for message in messages %}
+                        <li>
+                            <strong>{{ "You" if message.user_id == current_user.id else message.user.name }}:</strong>
+                            {{ message.message }} <br>
+                            <small>{{ message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <form onsubmit="sendMessage(event)">
+                <textarea id="message" rows="4" cols="50" placeholder="Type your message here..." required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+
+
+        <!-- Reviews Section -->
+        <section class="reviews">
+            <h2>Your Reviews</h2>
+            <ul>
+                {% for review in reviews %}
+                    <li>
+                        <strong>{{ review.user.name }}</strong> rated: {{ review.rating }}/5
+                        <p>{{ review.comment }}</p>
+                        <p><em>Posted on: {{ review.date_posted.strftime('%Y-%m-%d') }}</em></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </section>
+
+            <!-- Community Posts Section -->
+            <section class="community-posts">
+                <h2>Recent Community Posts</h2>
+                <ul>
+                    {% for post in recent_posts %}
+                        <li>
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.content | truncate(100) }}</p>
+                            <small>Posted by {{ post.user.name }} on {{ post.date_posted }}</small><br>
+                            <button class="community-btn">
+                                <a href="{{ url_for('view_post', post_id=post.id) }}">View Post</a>
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button class="community-btn">
+                    <a href="{{ url_for('community') }}">Community Posts</a>
+                </button>
+            </section>
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+    <div class="container">
+        <!-- Flash messages block -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div id="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Add Bootstrap JS or your JavaScript framework for dismiss functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

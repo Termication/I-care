@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with {{ doctor.user_profile.name }}</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+    <script type="text/javascript">
+        var socket = io.connect(window.location.protocol + '//' + document.domain + ':' + location.port);
+        
+        
+        // Join the room when the page loads
+        window.onload = function() {
+            var room = "room_{{ doctor.id }}_{{ current_user.id }}";
+            joinRoom(room);
+        }
+
+        // Send a message when the form is submitted
+        function sendMessage(event) {
+            event.preventDefault();  // Prevent form submission
+            var room = "room_{{ doctor.id }}_{{ current_user.id }}";
+            var message = document.getElementById('message').value;
+            var doctor_id = "{{ doctor.id }}";
+            var user_id = "{{ current_user.id }}";
+
+            // Emit the message event
+            socket.emit('send_message', { room: room, message: message, doctor_id: doctor_id, user_id: user_id });
+
+            // Clear the input field after sending
+            document.getElementById('message').value = '';
+        }
+
+        // Listen for new messages from the server
+        socket.on('receive_message', function(data) {
+            var message = data.message;
+            var user = (data.user_id == "{{ current_user.id }}") ? "You" : "{{ doctor.user_profile.name }}";
+            var timestamp = new Date().toLocaleString();
+
+            // Append the message to the chat history
+            var chatHistory = document.getElementById('chat-history');
+            var newMessage = `<li><strong>${user}:</strong> ${message} <br><small>${timestamp}</small></li>`;
+            chatHistory.innerHTML += newMessage;
+        });
+
+        // Join a room
+        function joinRoom(room) {
+            socket.emit('join', { room: room });
+        }
+
+        // Leaving a room when you navigate away (if needed)
+        window.onbeforeunload = function() {
+            var room = "room_{{ doctor.id }}_{{ current_user.id }}";
+            socket.emit('leave', { room: room });
+        }
+    </script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+</head>
+<body>
+    <h1>Chat with {{ doctor.user_profile.name }}</h1>
+
+    <div class="chat-history">
+        <ul id="chat-history">
+            {% for message in messages %}
+                <li>
+                    <strong>{{ "You" if message.user_id == current_user.id else doctor.user_profile.name }}:</strong>
+                    {{ message.message }} <br>
+                    <small>{{ message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <form onsubmit="sendMessage(event)">
+        <textarea id="message" rows="4" cols="50" placeholder="Type your message here..." required></textarea>
+        <button type="submit">Send</button>
+    </form>
+
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+    <div class="container">
+        <!-- Flash messages block -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div id="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Add Bootstrap JS or your JavaScript framework for dismiss functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

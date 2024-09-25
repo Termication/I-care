@@ -1,0 +1,89 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container { /* Assuming you have a container for the chat */
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 15px;
+    color: #2980b9;
+    text-align: center;
+}
+
+/* Chat History */
+.chat-history {
+    height: 300px; /* Adjust as needed */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.chat-history ul {
+    list-style: none;
+    padding: 0;
+}
+
+.chat-history li {
+    margin-bottom: 10px;
+}
+
+.chat-history li strong {
+    display: block;
+    margin-bottom: 3px;
+}
+
+.chat-history li small {
+    display: block;
+    font-size: 12px;
+    color: #777;
+}
+
+/* Chat Form */
+textarea {
+    width: calc(100% - 100px); /* Adjust for button width */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical; /* Allow vertical resizing */
+}
+
+button[type="submit"] {
+    background-color: #2980b9;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #2471a3;
+}
+
+/* Back Button */
+a[href="{{ url_for('dashboard') }}"] {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #2980b9;
+    text-decoration: none;
+}
+
+a[href="{{ url_for('dashboard') }}"]:hover {
+    text-decoration: underline;
+}

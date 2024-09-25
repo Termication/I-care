@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f5;
+    background-color: #474761;
     margin: 0;
     padding: 0;
     display: flex;
@@ -9,6 +9,19 @@ body {
     min-height: 100vh;
 }
 
+p {
+    font-size: 1em;
+    color: #ffffff;
+}
+
+h2 {
+    font-size: 1.8em;
+    font-style: normal;
+    color: #31b4ff;
+    display: flexbox;
+    text-align: center;
+    margin: 20px 0;
+}
 .dashboard-container {
     width: 100%;
     max-width: 600px;
@@ -19,15 +32,20 @@ body {
     padding: 20px;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+.load-reviews-btn, .request-btn {
     background-color: #7a57d1;
     color: white;
-    padding: 15px 20px;
-    border-radius: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
+
+.load-reviews-btn, .request-btn button:hover {
+    background-color: #6b49bf;
+}
+
 
 header h1 {
     font-size: 1.5em;
@@ -60,21 +78,6 @@ header h1 {
     display: flex;
     justify-content: center;
     margin-top: 10px;
-}
-
-.filters button {
-    background-color: #f0f0f5;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    margin: 0 5px;
-    color: #7a57d1;
-    font-weight: bold;
-}
-
-.filters button.active {
-    background-color: #7a57d1;
-    color: white;
 }
 
 h2 {

@@ -1,0 +1,24 @@
+.label-role {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: bold;
+}
+
+#role {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px; /* Space below the dropdown */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+#role:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+.role-container {
+    margin-bottom: 20px; /* Space below the role container */
+}

@@ -1,0 +1,90 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font choice */
+    margin: 0;
+    padding: 0;
+    background-color: #ececec;
+    color: #333; /* Darker text for better contrast */
+  }
+  
+  .container {
+    max-width: 800px; /* Increased width for better content display */
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px; /* Add padding to the container */
+  }
+  
+  h1, h2 {
+    margin-bottom: 15px;
+    color: #2980b9; /* Blue heading color */
+  }
+  
+  p, li {
+    margin-bottom: 10px;
+  }
+  
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  /* Doctor Cards */
+  .doctor-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .doctor-card strong {
+    display: block; /* Make labels block-level for better spacing */
+    margin-bottom: 5px;
+  }
+  
+  /* Buttons */
+  .load-reviews-btn, .request-btn, .add-review-btn, .community-btn {
+    background-color: #2980b9; /* Consistent blue color */
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px; /* Add spacing between buttons */
+  }
+  
+  .load-reviews-btn:hover, .request-btn:hover, .add-review-btn:hover, .community-btn:hover{
+    background-color: #2471a3; /* Darker shade on hover */
+  }
+  
+  /* Community Posts */
+  .community-posts li {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .community-posts a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .community-posts a:hover {
+    text-decoration: none;
+  }
+  
+  .logout-btn {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    color: #2980b9;
+    text-decoration: none;
+  }
+  
+.logout-btn:hover {
+    text-decoration: none;
+  }

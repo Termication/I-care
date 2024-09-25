@@ -23,7 +23,12 @@
                 <h3>{{ post.title }}</h3>
                 <p>{{ post.content | truncate(100) }}</p>
                 <small>Posted by {{ post.user.name }} on {{ post.date_posted }}</small>
-                <a href="{{ url_for('view_post', post_id=post.id) }}">View Post</a>
+
+                {% if current_user.id == post.user_id %}
+                <form action="{{ url_for('view_post', post_id=post.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">View</button>
+                </form>
+                {% endif %}
 
                 <!-- Show delete button only if current user owns the post -->
                 {% if current_user.id == post.user_id %}
@@ -31,16 +36,42 @@
                         <button type="submit">Delete</button>
                     </form>
                 {% endif %}
-                
+
+                <!-- Edit button for post owner -->
+                {% if current_user.id == post.user_id %}
+                    <form action="{{ url_for('edit_post', post_id=post.id) }}" method="POST" style="display:inline;">
+                        <button type="submit">Edit</button>
+                    </form>
+                {% endif %}
+
+                <!-- Like button -->
                 <form action="{{ url_for('like_post', post_id=post.id) }}" method="POST" style="display:inline;">
-                    <button type="submit">
-                        Like ({{ post.likes|length }})
-                    </button>
+                    <button type="submit">Like ({{ post.likes|length }})</button>
                 </form>
             </li>
             {% endfor %}
         </ul>
         <a href="{{ url_for('dashboard') }}" class="back-btn">Back to Dashboard</a>
     </div>
+
+    <div class="container">
+        <!-- Flash messages block -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div id="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Add Bootstrap JS or your JavaScript framework for dismiss functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

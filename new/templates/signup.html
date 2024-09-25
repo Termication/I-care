@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I CARE - Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/role.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/typography.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/links.css') }}">
+</head>
+<body>
+
+<div class="form-container">
+    <div class="form-content" id="signUpForm">
+        <img src="{{ url_for('static', filename='graphics/i care transparent.png') }}" alt="I CARE Logo" class="logo">
+        <h2>Create Account</h2>
+        <form action="/signup" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="tel" name="contact_number" placeholder="Contact Number" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <div class="role-container">
+                <label for="role" class="label-role">I am a:</label>
+                <select id="role" name="role" onchange="showFieldsBasedOnRole()">
+                    <option value="none" disabled selected>Select Role</option>
+                    <option value="student">Student</option>
+                    <option value="doctor">Doctor</option>
+                </select>
+            </div>
+
+            <!-- Student Fields -->
+            <div id="student-fields" style="display:none;">
+                <input type="text" name="student_number" placeholder="Student Number">
+                <input type="text" name="school_name" placeholder="University or College">
+            </div>
+
+            <!-- Doctor Fields -->
+            <div id="doctor-fields" style="display:none;">
+                <input type="text" name="medical_practice_number" placeholder="Medical Practice Number">
+                <input type="text" name="specialty" placeholder="Specialty">
+            </div>
+
+            <button type="submit" class="btn-primary">Sign Up</button>
+            <button class="btn-secondary">Connect with Facebook</button>
+        </form>
+        <p>I'm a member, <a href="/login">Log in</a></p>
+    </div>
+</div>
+
+<script>
+function showFieldsBasedOnRole() {
+        const roleSelect = document.getElementById('role');
+        const studentFields = document.getElementById('student-fields');
+        const doctorFields = document.getElementById('doctor-fields');
+        
+        if (roleSelect.value === 'student') {
+            studentFields.style.display = 'block';
+            doctorFields.style.display = 'none';
+        } else if (roleSelect.value === 'doctor') {
+            doctorFields.style.display = 'block';
+            studentFields.style.display = 'none';
+        } else {
+            studentFields.style.display = 'none';
+            doctorFields.style.display = 'none';
+        }
+    }
+
+    // Trigger the function to hide/show fields when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        showFieldsBasedOnRole();
+    });
+</script>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
