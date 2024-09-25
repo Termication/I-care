@@ -1,0 +1,6 @@
+pip install 
+Flask
+Flask-SQLAlchemy
+Flask-Login
+Werkzeug
+Flask-SocketIO
